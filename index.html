@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-55TGHN55');</script>
+    <!-- End Google Tag Manager -->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>codiva PlantUML - Online UML Diagram Editor with AWS Architecture Support</title>
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="codiva PlantUML - Online UML Diagram Editor with AWS Architecture Support">
+    <meta name="description"
+        content="Create and edit UML diagrams, AWS architecture diagrams, and software documentation using PlantUML. Features dark theme, code formatting, and instant preview.">
+    <meta name="keywords"
+        content="PlantUML, UML diagrams, AWS architecture, software documentation, diagram editor, cloud architecture, system design, codiva, developer tools">
+    <meta name="author" content="codiva">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://codiva-plantuml.surge.sh/">
+    <meta property="og:title" content="codiva PlantUML - Online UML Diagram Editor with AWS Architecture Support">
+    <meta property="og:description"
+        content="Create and edit UML diagrams, AWS architecture diagrams, and software documentation using PlantUML. Features dark theme, code formatting, and instant preview.">
+    <meta property="og:image"
+        content="https://www.plantuml.com/plantuml/svg/SoWkIImgAStDuNBAJrBGjLDmpCbCJbMmKiX8pSd9vt98pKi1IW80">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://codiva-plantuml.surge.sh/">
+    <meta property="twitter:title" content="codiva PlantUML - Online UML Diagram Editor with AWS Architecture Support">
+    <meta property="twitter:description"
+        content="Create and edit UML diagrams, AWS architecture diagrams, and software documentation using PlantUML. Features dark theme, code formatting, and instant preview.">
+    <meta property="twitter:image"
+        content="https://www.plantuml.com/plantuml/svg/SoWkIImgAStDuNBAJrBGjLDmpCbCJbMmKiX8pSd9vt98pKi1IW80">
+
+    <!-- Additional SEO -->
+    <meta name="application-name" content="codiva PlantUML">
+    <meta name="theme-color" content="#14121f">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="codiva PlantUML">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="canonical" href="https://codiva-plantuml.surge.sh/">
+
+    <!-- JSON-LD structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "codiva PlantUML",
+      "description": "Create and edit UML diagrams, AWS architecture diagrams, and software documentation using PlantUML. Features dark theme, code formatting, and instant preview.",
+      "url": "https://codiva-plantuml.surge.sh",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "featureList": [
+        "UML Diagram Creation",
+        "AWS Architecture Diagrams",
+        "Dark Theme",
+        "Code Formatting",
+        "Instant Preview",
+        "SVG/PNG Export"
+      ]
+    }
+    </script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary-purple: #6c2bd9;
+            --secondary-purple: #8b5cf6;
+            --dark-purple: #2e1065;
+            --light-purple: #a78bfa;
+            --bg-dark: #14121f;
+            --card-dark: #1a1625;
+            --border-dark: #2d2b3b;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: #f8f8f2;
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--light-purple);
+        }
+
+        .btn-purple {
+            background-color: var(--primary-purple);
+            border-color: var(--primary-purple);
+            color: white;
+        }
+
+        .btn-purple:hover {
+            background-color: var(--secondary-purple);
+            border-color: var(--secondary-purple);
+            color: white;
+        }
+
+        /* Custom Monokai theme for PlantUML */
+        .CodeMirror {
+            height: 800px;
+            border-radius: 4px;
+            font-size: 14px;
+            background: #272822 !important;
+        }
+
+        .cm-s-monokai-plantuml.CodeMirror {
+            color: #f8f8f2;
+        }
+
+        .cm-s-monokai-plantuml div.CodeMirror-selected {
+            background: #49483E;
+        }
+
+        .cm-s-monokai-plantuml .CodeMirror-line::selection,
+        .cm-s-monokai-plantuml .CodeMirror-line>span::selection,
+        .cm-s-monokai-plantuml .CodeMirror-line>span>span::selection {
+            background: rgba(73, 72, 62, .99);
+        }
+
+        .cm-s-monokai-plantuml .CodeMirror-gutters {
+            background: #272822;
+            border-right: 0px;
+        }
+
+        .cm-s-monokai-plantuml .CodeMirror-guttermarker {
+            color: white;
+        }
+
+        .cm-s-monokai-plantuml .CodeMirror-guttermarker-subtle {
+            color: #d0d0d0;
+        }
+
+        .cm-s-monokai-plantuml .CodeMirror-linenumber {
+            color: #d0d0d0;
+        }
+
+        .cm-s-monokai-plantuml .CodeMirror-cursor {
+            border-left: 1px solid #f8f8f0;
+        }
+
+        .cm-s-monokai-plantuml span.cm-keyword {
+            color: #f92672;
+        }
+
+        .cm-s-monokai-plantuml span.cm-atom {
+            color: #ae81ff;
+        }
+
+        .cm-s-monokai-plantuml span.cm-number {
+            color: #ae81ff;
+        }
+
+        .cm-s-monokai-plantuml span.cm-def {
+            color: #a6e22e;
+        }
+
+        .cm-s-monokai-plantuml span.cm-variable {
+            color: #f8f8f2;
+        }
+
+        .cm-s-monokai-plantuml span.cm-property {
+            color: #f8f8f2;
+        }
+
+        .cm-s-monokai-plantuml span.cm-operator {
+            color: #f92672;
+        }
+
+        .cm-s-monokai-plantuml span.cm-string {
+            color: #e6db74;
+        }
+
+        .cm-s-monokai-plantuml span.cm-variable-2 {
+            color: #9effff;
+        }
+
+        .cm-s-monokai-plantuml span.cm-variable-3 {
+            color: #66d9ef;
+        }
+
+        .cm-s-monokai-plantuml span.cm-comment {
+            color: #75715e;
+        }
+
+        .cm-s-monokai-plantuml span.cm-meta {
+            color: #f8f8f2;
+        }
+
+        .cm-s-monokai-plantuml span.cm-qualifier {
+            color: #a6e22e;
+        }
+
+        .cm-s-monokai-plantuml span.cm-builtin {
+            color: #66d9ef;
+        }
+
+        .cm-s-monokai-plantuml span.cm-bracket {
+            color: #f8f8f2;
+        }
+
+        .cm-s-monokai-plantuml span.cm-tag {
+            color: #f92672;
+        }
+
+        .cm-s-monokai-plantuml span.cm-attribute {
+            color: #a6e22e;
+        }
+
+        .cm-s-monokai-plantuml span.cm-error {
+            background: #f92672;
+            color: #f8f8f0;
+        }
+
+        .cm-s-monokai-plantuml .CodeMirror-activeline-background {
+            background: #373831;
+        }
+
+        .cm-s-monokai-plantuml .CodeMirror-matchingbracket {
+            text-decoration: underline;
+            color: white !important;
+        }
+
+        .preview-container {
+            background-color: var(--card-dark);
+            border-radius: 8px;
+            border: 1px solid var(--border-dark);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        #contextMenu {
+            position: fixed;
+            z-index: 1000;
+            background: var(--card-dark);
+            border: 1px solid var(--border-dark);
+            border-radius: 4px;
+            padding: 5px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        #contextMenu .menu-item {
+            padding: 8px 15px;
+            cursor: pointer;
+            color: #f8f8f2;
+            font-size: 14px;
+        }
+
+        #contextMenu .menu-item:hover {
+            background: #49483E;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-55TGHN55" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <div class="container py-4">
+        <h1 class="mb-4 text-center" style="text-shadow: 0 2px 4px rgba(167, 139, 250, 0.2);">codiva PlantUML</h1>
+
+        <div class="row g-4">
+            <div class="col-12">
+                <div class="card shadow-sm text-white"
+                    style="background-color: var(--card-dark); border: 1px solid var(--border-dark);">
+                    <div class="card-body">
+                        <div id="editor"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="preview-container p-3">
+                    <h5 class="mb-3 text-light">Preview</h5>
+                    <div id="diagram" class="text-center">
+                        <!-- Diagram will be rendered here -->
+                    </div>
+                    <div class="mt-3 text-center">
+                        <button id="downloadSvg" class="btn btn-purple me-2">Download SVG</button>
+                        <button id="downloadPng" class="btn btn-purple">Download PNG</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Context Menu -->
+    <div id="contextMenu" style="display: none;">
+        <div class="menu-item" id="formatCode">Format Code</div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/plantuml-encoder@1.4.0/dist/plantuml-encoder.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script>
+        const diagram = document.getElementById('diagram');
+        const initialCode = String.raw`@startuml
+!define AWSPuml https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/v19.0/dist
+!include AWSPuml/AWSCommon.puml
+!include AWSPuml/NetworkingContentDelivery/APIGateway.puml
+!include AWSPuml/Compute/LambdaLambdaFunction.puml
+!include AWSPuml/Database/DynamoDB.puml
+!include AWSPuml/General/User.puml
+!include AWSPuml/Groups/AWSCloud.puml
+!include AWSPuml/NetworkingContentDelivery/CloudFront.puml
+!include AWSPuml/NetworkingContentDelivery/CloudFrontEdgeLocation.puml
+
+hide footbox
+skinparam style strictuml
+skinparam Sequence { 
+    MessageAlignment left
+}
+skinparam Note {
+    TextAlignment left
+    FontColor black
+    BackgroundColor #BUSINESS
+}
+
+skinparam shadowing false
+skinparam MaxMessageSize 600
+
+!procedure $AWSIcon($service, $line1, $line2="")
+participant "$AWSImg($service)\n<b>$line1</b>\n$line2"
+!endprocedure 
+
+$AWSIcon(User, " ", "User") as user
+$AWSIcon(CloudFront, "Web Distribution", "Amazon CloudFront\n") as cf
+$AWSIcon(CloudFrontEdgeLocation, "Orgin Request", "AWS Lambda@Edge\n") as edge <<nodejs14.x>>
+$AWSIcon(DynamoDB, "Version Mappings", "Amazon DynamoDB\n") as dynamodb <<on-demand>>
+
+box API Version 1
+$AWSIcon(APIGateway, "API V1", "Amazon API\nGateway") as api2 <<REST API>>
+$AWSIcon(LambdaLambdaFunction, "Function V1", "AWS Lambda\n") as lambda2 <<nodejs14.x>>
+end box
+
+alt missing Accept-Version header
+    user -> cf: GET /hello\nHost: {distribution}.cloudfront.net
+    activate user $AWS_COLOR_SQUID
+    activate cf $AWSColor(NetworkingContentDelivery)
+    cf -> edge: handle(event)
+    activate edge $AWSColor(NetworkingContentDelivery)
+    edge --> cf: cf.response object\nwith status=400 and\ncustom description
+    deactivate edge
+    cf --> user: HTTP/1.1 400 Version Required
+    deactivate cf
+    deactivate user
+
+else else
+    user -> cf: GET /hello\nHost: {distribution}.cloudfront.net\nAccept-Version: {V#}
+    activate user $AWS_COLOR_SQUID
+    activate cf $AWSColor(NetworkingContentDelivery)
+    cf -> edge: handle(event)
+    activate edge $AWSColor(NetworkingContentDelivery)
+    group opt   [version mappings not cached]
+        edge -> dynamodb: table scan
+        activate dynamodb $AWSColor(Database)
+        dynamodb --> edge: items
+        deactivate dynamodb
+        edge -> edge: cache version mappings
+    end
+
+    edge -> edge: lookup API version
+    
+    alt version not found
+        edge --> cf: cf.response object\nwith status=404 and\ncustom description
+        note right
+            Accept-Version: V3
+        end note
+        cf --> user: HTTP/1.1 404 Version Not Found
+    else else
+        edge --> cf: cf.request object\nwith updated path\nand Host header
+        note right
+            Accept-Version: V1
+        end note
+        deactivate edge
+        cf->api2++ $AWSColor(ApplicationIntegration): GET /Prod/v1\nHost: {API V1}.execute-api.{region}.amazonaws.com
+        api2->lambda2++ $AWSColor(Compute):
+        return 
+        return
+        cf --> user: HTTP/1.1 200 OK\lContent-Type: application/json\l\l{\l  "message" : "API V1: Hello world!"\l}
+        deactivate cf
+        deactivate user
+    end
+end 
+
+@enduml`;
+
+        // Define custom mode for PlantUML
+        CodeMirror.defineMode("plantuml", function () {
+            return {
+                token: function (stream, state) {
+                    if (stream.match(/@start/)) return "keyword";
+                    if (stream.match(/@end/)) return "keyword";
+                    if (stream.match(/class|interface|enum|abstract/)) return "keyword";
+                    if (stream.match(/\+|-|#|~/)) return "operator";
+                    if (stream.match(/\{/)) return "bracket";
+                    if (stream.match(/\}/)) return "bracket";
+                    if (stream.match(/[A-Z][\w$]*/)) return "variable-2"; // Class names
+                    if (stream.match(/[a-z][\w$]*\(/)) return "def"; // Methods
+                    if (stream.match(/[a-z][\w$]*/)) return "property"; // Properties
+                    if (stream.match(/:/)) return "operator";
+                    if (stream.match(/"[^"]*"/)) return "string";
+                    if (stream.match(/'.+'/)) return "string";
+
+                    stream.next();
+                    return null;
+                }
+            };
+        });
+
+        const codeEditor = CodeMirror(document.getElementById('editor'), {
+            value: initialCode,
+            mode: 'plantuml',
+            theme: 'monokai-plantuml',
+            lineNumbers: true,
+            autoCloseBrackets: true,
+            matchBrackets: true,
+            indentUnit: 2,
+            tabSize: 2,
+            lineWrapping: true,
+            viewportMargin: Infinity
+        });
+
+        function updateDiagram() {
+            const plantUmlCode = codeEditor.getValue();
+            try {
+                // Use plantuml-encoder to properly encode the diagram
+                const encoded = plantumlEncoder.encode(plantUmlCode);
+                const url = `https://www.plantuml.com/plantuml/svg/${encoded}`;
+                const img = document.createElement('img');
+                img.src = url;
+                img.className = 'img-fluid';
+                img.onerror = () => {
+                    diagram.innerHTML = '<div class="alert alert-danger">Error rendering diagram. Please check your PlantUML syntax.</div>';
+                };
+                diagram.innerHTML = '';
+                diagram.appendChild(img);
+            } catch (error) {
+                diagram.innerHTML = '<div class="alert alert-danger">Error encoding diagram. Please check your PlantUML syntax.</div>';
+            }
+        }
+
+        // Add event listeners with debounce for better performance
+        let timeout;
+        codeEditor.on('change', () => {
+            clearTimeout(timeout);
+            timeout = setTimeout(updateDiagram, 500);
+        });
+
+        // Download handlers
+        document.getElementById('downloadSvg').addEventListener('click', () => {
+            const plantUmlCode = codeEditor.getValue();
+            const encoded = plantumlEncoder.encode(plantUmlCode);
+            const url = `https://www.plantuml.com/plantuml/svg/${encoded}`;
+            downloadUrl(url, 'diagram.svg');
+        });
+
+        document.getElementById('downloadPng').addEventListener('click', () => {
+            const plantUmlCode = codeEditor.getValue();
+            const encoded = plantumlEncoder.encode(plantUmlCode);
+            const url = `https://www.plantuml.com/plantuml/png/${encoded}`;
+            downloadUrl(url, 'diagram.png');
+        });
+
+        function downloadUrl(url, filename) {
+            fetch(url)
+                .then(response => response.blob())
+                .then(blob => {
+                    const a = document.createElement('a');
+                    a.href = URL.createObjectURL(blob);
+                    a.download = filename;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(a.href);
+                })
+                .catch(error => {
+                    console.error('Download failed:', error);
+                    alert('Download failed. Please try again.');
+                });
+        }
+
+        // Context menu handling
+        const contextMenu = document.getElementById('contextMenu');
+        const formatCodeBtn = document.getElementById('formatCode');
+
+        // Format PlantUML code
+        function formatPlantUMLCode(code) {
+            // Split into lines and remove empty lines at start and end
+            let lines = code.split('\n').filter(line => line.trim() !== '');
+
+            // Track indentation level
+            let indent = 0;
+            let formatted = [];
+
+            for (let line of lines) {
+                let trimmed = line.trim();
+
+                // Decrease indent for closing brackets and end keywords
+                if (trimmed.match(/^}|^end|^@enduml/)) {
+                    indent = Math.max(0, indent - 1);
+                }
+
+                // Add line with proper indentation
+                formatted.push('  '.repeat(indent) + trimmed);
+
+                // Increase indent for opening brackets
+                if (trimmed.match(/{$|^@startuml/)) {
+                    indent++;
+                }
+            }
+
+            return formatted.join('\n');
+        }
+
+        // Show context menu on right click in editor
+        codeEditor.getWrapperElement().addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+            contextMenu.style.display = 'block';
+            contextMenu.style.left = e.pageX + 'px';
+            contextMenu.style.top = e.pageY + 'px';
+        });
+
+        // Hide context menu when clicking outside
+        document.addEventListener('click', () => {
+            contextMenu.style.display = 'none';
+        });
+
+        // Format code action
+        formatCodeBtn.addEventListener('click', () => {
+            const currentCode = codeEditor.getValue();
+            const formattedCode = formatPlantUMLCode(currentCode);
+            codeEditor.setValue(formattedCode);
+            contextMenu.style.display = 'none';
+        });
+
+        // Initial render
+        updateDiagram();
+    </script>
+</body>
+
+</html>
